@@ -1,0 +1,176 @@
+{
+  "executado_em": "2026-08-26T05:13:24+00:00",
+  "modelo": "qwen3:8b",
+  "prompt_versao": "extraction_v1",
+  "acuracia_por_campo": {
+    "tipo_ato": 1.0,
+    "numero": 1.0,
+    "ano": 1.0,
+    "orgao_emissor": 0.75,
+    "data_assinatura": 1.0,
+    "data_publicacao": 1.0
+  },
+  "acuracia_media": 0.9583333333333334,
+  "custo_total_usd": 0.0,
+  "resultados": [
+    {
+      "arquivo": "ato_01.pdf",
+      "esperado": {
+        "tipo_ato": "PORTARIA",
+        "numero": "250",
+        "ano": 2025,
+        "orgao_emissor": "Defensoria Pública-Geral do Estado",
+        "data_assinatura": "2025-04-08",
+        "data_publicacao": null
+      },
+      "obtido": {
+        "tipo_ato": "PORTARIA",
+        "numero": "250",
+        "ano": 2025,
+        "orgao_emissor": "Defensoria Pública-Geral do Estado",
+        "data_assinatura": "2025-04-08",
+        "data_publicacao": null,
+        "confianca_calculada": 0.59,
+        "campos_suspeitos": [
+          "orgao_emissor",
+          "signatarios",
+          "pessoas_citadas",
+          "fundamentacao_legal",
+          "vigencia"
+        ],
+        "tokens_entrada": 3025,
+        "tokens_saida": 760,
+        "custo_estimado_usd": 0.0,
+        "latencia_s": 43.09,
+        "truncado": false
+      },
+      "acertos_por_campo": {
+        "tipo_ato": true,
+        "numero": true,
+        "ano": true,
+        "orgao_emissor": true,
+        "data_assinatura": true,
+        "data_publicacao": true
+      }
+    },
+    {
+      "arquivo": "ato_02.pdf",
+      "esperado": {
+        "tipo_ato": "PORTARIA",
+        "numero": "001",
+        "ano": 2026,
+        "orgao_emissor": "Núcleo Especializado de Atendimento Inicial da Capital",
+        "data_assinatura": "2026-05-12",
+        "data_publicacao": null
+      },
+      "obtido": {
+        "tipo_ato": "PORTARIA",
+        "numero": "001",
+        "ano": 2026,
+        "orgao_emissor": "CNDEAIC",
+        "data_assinatura": "2026-05-12",
+        "data_publicacao": null,
+        "confianca_calculada": 0.59,
+        "campos_suspeitos": [
+          "data_assinatura",
+          "signatarios",
+          "fundamentacao_legal",
+          "atos_relacionados",
+          "vigencia"
+        ],
+        "tokens_entrada": 4222,
+        "tokens_saida": 1012,
+        "custo_estimado_usd": 0.0,
+        "latencia_s": 58.36,
+        "truncado": false
+      },
+      "acertos_por_campo": {
+        "tipo_ato": true,
+        "numero": true,
+        "ano": true,
+        "orgao_emissor": false,
+        "data_assinatura": true,
+        "data_publicacao": true
+      }
+    },
+    {
+      "arquivo": "ato_03.pdf",
+      "esperado": {
+        "tipo_ato": "DESPACHO",
+        "numero": "2145",
+        "ano": 2026,
+        "orgao_emissor": "Subdefensoria Pública-Geral do Estado para Assuntos Institucionais",
+        "data_assinatura": "2026-08-11",
+        "data_publicacao": null
+      },
+      "obtido": {
+        "tipo_ato": "DESPACHO",
+        "numero": "2145",
+        "ano": 2026,
+        "orgao_emissor": "SUBDEFENSORIA PÚBLICA-GERAL DO ESTADO PARA ASSUNTOS INSTITUCIONAIS",
+        "data_assinatura": "2026-08-11",
+        "data_publicacao": null,
+        "confianca_calculada": 0.78,
+        "campos_suspeitos": [
+          "pessoas_citadas",
+          "atos_relacionados",
+          "vigencia"
+        ],
+        "tokens_entrada": 14212,
+        "tokens_saida": 2200,
+        "custo_estimado_usd": 0.0,
+        "latencia_s": 249.62,
+        "truncado": true
+      },
+      "acertos_por_campo": {
+        "tipo_ato": true,
+        "numero": true,
+        "ano": true,
+        "orgao_emissor": true,
+        "data_assinatura": true,
+        "data_publicacao": true
+      }
+    },
+    {
+      "arquivo": "ato_04.pdf",
+      "erro": "Não foi possível extrair texto deste PDF. Ele provavelmente é um documento escaneado (imagem) sem camada de texto — reconhecimento óptico (OCR) não é suportado nesta versão."
+    },
+    {
+      "arquivo": "ato_05.pdf",
+      "esperado": {
+        "tipo_ato": "EDITAL",
+        "numero": "005",
+        "ano": 2026,
+        "orgao_emissor": "Corregedoria-Geral da Defensoria Pública do Estado",
+        "data_assinatura": "2026-07-01",
+        "data_publicacao": null
+      },
+      "obtido": {
+        "tipo_ato": "EDITAL",
+        "numero": "005",
+        "ano": 2026,
+        "orgao_emissor": "Corregedoria-Geral da Defensoria Pública do Estado",
+        "data_assinatura": "2026-07-01",
+        "data_publicacao": null,
+        "confianca_calculada": 0.78,
+        "campos_suspeitos": [
+          "data_assinatura",
+          "vigencia"
+        ],
+        "tokens_entrada": 4105,
+        "tokens_saida": 892,
+        "custo_estimado_usd": 0.0,
+        "latencia_s": 69.21,
+        "truncado": false
+      },
+      "acertos_por_campo": {
+        "tipo_ato": true,
+        "numero": true,
+        "ano": true,
+        "orgao_emissor": true,
+        "data_assinatura": true,
+        "data_publicacao": true
+      }
+    }
+  ]
+}

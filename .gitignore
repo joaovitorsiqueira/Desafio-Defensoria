@@ -1,0 +1,38 @@
+# Segredos / ambiente
+.env
+.env.local
+
+# Python
+backend/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Banco de dados local e uploads
+backend/storage/*.db
+backend/storage/atos/*
+!backend/storage/atos/.gitkeep
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+frontend/tsconfig.tsbuildinfo
+
+# Claude Code harness internals (not part of the project deliverable)
+.claude/scheduled_tasks.lock
+
+# Scratch/debug output
+backend/out_utf8.json
+
+# Editor / SO
+.DS_Store
+.idea/
+.vscode/
+
+# Logs de execução local (não são o resultado registrado da avaliação —
+# esse fica em evaluation/results_latest.{md,json}, que É versionado)
+evaluation_run.log
+backend_server.log
+
+# Materiais brutos fornecidos (mantidos fora do repo; cópias usadas ficam em evaluation/dataset/pdfs)
+/Atos/

@@ -1,0 +1,52 @@
+[
+  {
+    "arquivo": "ato_01.pdf",
+    "descricao": "Portaria de recondução de Ouvidora-Geral (DPE-GO)",
+    "tipo_ato": "PORTARIA",
+    "numero": "250",
+    "ano": 2025,
+    "orgao_emissor": "Defensoria Pública-Geral do Estado",
+    "data_assinatura": "2025-04-08",
+    "data_publicacao": null
+  },
+  {
+    "arquivo": "ato_02.pdf",
+    "descricao": "Portaria interna do NDE de Atendimento Inicial da Capital, cria serviço de apoio ao usuário",
+    "tipo_ato": "PORTARIA",
+    "numero": "001",
+    "ano": 2026,
+    "orgao_emissor": "Núcleo Especializado de Atendimento Inicial da Capital",
+    "data_assinatura": "2026-05-12",
+    "data_publicacao": null
+  },
+  {
+    "arquivo": "ato_03.pdf",
+    "descricao": "Despacho extenso (72 páginas) com tabelas de designação de defensores para bancas de audiências",
+    "tipo_ato": "DESPACHO",
+    "numero": "2145",
+    "ano": 2026,
+    "orgao_emissor": "Subdefensoria Pública-Geral do Estado para Assuntos Institucionais",
+    "data_assinatura": "2026-08-11",
+    "data_publicacao": null
+  },
+  {
+    "arquivo": "ato_04.pdf",
+    "descricao": "Instrução Técnica Conjunta (autodenominada Instrução Normativa) sobre o Portal da Transparência, assinada por 3 diretorias sem órgão emissor único explícito",
+    "tipo_ato": "INSTRUCAO_NORMATIVA",
+    "numero": "001",
+    "ano": 2024,
+    "orgao_emissor": null,
+    "data_assinatura": "2024-06-14",
+    "data_publicacao": null
+  },
+  {
+    "arquivo": "ato_05.pdf",
+    "descricao": "Edital de correição ordinária da Corregedoria-Geral",
+    "tipo_ato": "EDITAL",
+    "numero": "005",
+    "ano": 2026,
+    "orgao_emissor": "Corregedoria-Geral da Defensoria Pública do Estado",
+    "data_assinatura": "2026-07-01",
+    "data_publicacao": null
+  }
+]
