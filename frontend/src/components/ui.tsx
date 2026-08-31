@@ -46,7 +46,7 @@ export function Button({
   return (
     <button
       className={cx(
-        "inline-flex items-center justify-center gap-1.5 rounded-md px-3.5 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed",
+        "inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-3.5 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed",
         variants[variant],
         className
       )}

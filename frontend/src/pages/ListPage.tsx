@@ -122,35 +122,35 @@ export function ListPage() {
             <table className="w-full text-left text-sm">
               <thead className="border-b border-slate-200 bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
                 <tr>
-                  <th className="px-4 py-3">Tipo</th>
-                  <th className="px-4 py-3">Número/Ano</th>
-                  <th className="px-4 py-3">Órgão emissor</th>
-                  <th className="px-4 py-3">Assunto</th>
-                  <th className="px-4 py-3">Assinatura</th>
-                  <th className="px-4 py-3">Confiança</th>
-                  <th className="px-4 py-3"></th>
+                  <th className="px-3 py-3">Tipo</th>
+                  <th className="px-3 py-3">Número/Ano</th>
+                  <th className="px-3 py-3">Órgão emissor</th>
+                  <th className="px-3 py-3">Assunto</th>
+                  <th className="px-3 py-3">Assinatura</th>
+                  <th className="px-3 py-3">Confiança</th>
+                  <th className="whitespace-nowrap px-3 py-3"></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {itens.map((ato) => (
                   <tr key={ato.id} className="hover:bg-slate-50">
-                    <td className="px-4 py-3">
+                    <td className="px-3 py-3">
                       {ato.tipo_ato ? (
                         <Badge tone="info">{ROTULOS_TIPO_ATO[ato.tipo_ato]}</Badge>
                       ) : (
                         <span className="text-slate-400">—</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-slate-700">
+                    <td className="px-3 py-3 text-slate-700">
                       {ato.numero ?? "—"}
                       {ato.ano ? `/${ato.ano}` : ""}
                     </td>
-                    <td className="max-w-[220px] truncate px-4 py-3 text-slate-700">
+                    <td className="max-w-[160px] truncate px-3 py-3 text-slate-700">
                       {ato.orgao_emissor ?? "—"}
                     </td>
-                    <td className="max-w-[280px] truncate px-4 py-3 text-slate-700">{ato.assunto ?? "—"}</td>
-                    <td className="px-4 py-3 text-slate-700">{formatarData(ato.data_assinatura) || "—"}</td>
-                    <td className="px-4 py-3">
+                    <td className="max-w-[200px] truncate px-3 py-3 text-slate-700">{ato.assunto ?? "—"}</td>
+                    <td className="px-3 py-3 text-slate-700">{formatarData(ato.data_assinatura) || "—"}</td>
+                    <td className="px-3 py-3">
                       <div className="flex items-center gap-1.5">
                         <BadgeConfianca valor={ato.confianca_geral} />
                         {ato.campos_suspeitos.length > 0 && (
@@ -161,7 +161,7 @@ export function ListPage() {
                         {ato.tem_correcao_humana && <Badge tone="info">Corrigido</Badge>}
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-right">
+                    <td className="px-3 py-3 text-right">
                       <Link to={`/atos/${ato.id}`}>
                         <Button variant="secondary">Ver detalhe</Button>
                       </Link>
