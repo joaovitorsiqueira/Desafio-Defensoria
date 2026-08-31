@@ -19,7 +19,7 @@ frontend/dist/
 frontend/tsconfig.tsbuildinfo
 
 # Claude Code harness internals (not part of the project deliverable)
-.claude/scheduled_tasks.lock
+.claude/
 
 # Scratch/debug output
 backend/out_utf8.json
