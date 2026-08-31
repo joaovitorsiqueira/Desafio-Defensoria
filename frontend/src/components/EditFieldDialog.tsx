@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ApiError, corrigirCampo } from "../services/api";
 import type { AtoDetail, AtoRelacionado, PapelPessoa, PessoaCitada, RelacaoAto, Signatario, Vigencia } from "../types/ato";
 import { NOMES_CAMPOS, ROTULOS_PAPEL, ROTULOS_RELACAO, ROTULOS_TIPO_ATO } from "../lib/format";
@@ -181,20 +181,29 @@ export function EditFieldDialog({
   const [estruturado, setEstruturado] = useState<unknown>(null);
   const [salvando, setSalvando] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
+  const [campoCarregado, setCampoCarregado] = useState<string | null>(null);
 
   // O diálogo permanece montado entre aberturas (só alterna `aberto`), então o
-  // estado precisa ser recarregado toda vez que ele abre para um campo — sem
-  // isso, reabrir para um campo diferente mostraria o valor do campo anterior.
-  useEffect(() => {
-    if (!aberto) return;
-    setErro(null);
-    if (ehCampoEstruturado(campo)) {
-      setEstruturado(valorAtual);
-    } else {
-      setTexto(valorParaEdicaoSimples(campo, valorAtual));
+  // estado precisa ser recarregado toda vez que ele abre para um campo. Isso
+  // era feito num useEffect, mas um efeito só roda DEPOIS da renderização: ao
+  // trocar de "vigência" (objeto) para "atos relacionados" (lista) sem
+  // fechar e reabrir o componente, a primeira renderização acontecia com o
+  // campo novo mas o estado `estruturado` ainda do formato antigo — e
+  // `itens.map(...)` num objeto que não é array quebrava a página inteira.
+  // Ajustar o estado aqui, durante a própria renderização, evita que essa
+  // renderização com formato incompatível chegue a acontecer.
+  const chaveDesejada = aberto ? campo : null;
+  if (campoCarregado !== chaveDesejada) {
+    setCampoCarregado(chaveDesejada);
+    if (chaveDesejada !== null) {
+      setErro(null);
+      if (ehCampoEstruturado(campo)) {
+        setEstruturado(valorAtual);
+      } else {
+        setTexto(valorParaEdicaoSimples(campo, valorAtual));
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [aberto, campo]);
+  }
 
   if (!aberto) return null;
 
