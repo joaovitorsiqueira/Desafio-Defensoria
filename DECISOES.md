@@ -208,6 +208,58 @@ e descartadas por desproporcionais ao escopo do desafio:
 registrado nos metadados de auditoria (`truncado: true`) e é um trade-off
 explícito, não um bug escondido.
 
+## Qualidade da extração de texto de PDF: dois bugs reais, encontrados e corrigidos em produção
+
+Testes com PDFs reais fora do conjunto de avaliação (fornecidos pelo próprio
+usuário durante o desenvolvimento) revelaram duas falhas genuínas na extração
+de texto via `pypdf`, ambas em `services/pdf/extractor.py`. As duas são
+características de **como certas ferramentas geram o PDF**, não de nenhum
+documento específico — por isso as correções são normalizações genéricas
+aplicadas a todo texto extraído, nunca uma regra amarrada a um arquivo.
+
+**1. Ligadura "ti" mal codificada.** Um PDF exportado pelo sistema SEI trazia
+43 ocorrências de um caractere Unicode (`Ɵ`) usado no lugar da ligadura
+"ti" — "ConsƟtuição" em vez de "Constituição", "insƟtuiu" em vez de
+"instituiu". Isso corrompia termos centrais do texto e quebrava a validação de
+evidências (o modelo tende a "corrigir" a grafia ao citar, e a comparação
+literal contra o texto — ainda corrompido — falhava por engano, mesmo quando o
+valor extraído estava certo). Corrigido substituindo o caractere pela
+sequência "ti" e aplicando normalização Unicode NFKC (que também resolve
+ligaduras legítimas como "ﬁ"/"ﬂ" que alguns extratores preservam como um
+único glifo).
+
+**2. Texto quebrado caractere-a-caractere.** Em outro PDF, uma página inteira
+(justamente a que continha os artigos finais e as assinaturas) foi extraída
+com uma letra por linha — `"P\nr\ni\nm\ne\ni\nr\na"` em vez de `"Primeira"`.
+Isso tem dois efeitos: infla artificialmente o tamanho do documento (nesse
+caso, de ~19 mil para ~36 mil caracteres, o suficiente para disparar
+truncamento desnecessário) e torna o trecho ilegível tanto para a busca de
+evidências quanto para o próprio modelo — o que se manifestou como uma
+extração quase inteiramente vazia (apenas `tipo_ato` preenchido, 186 tokens de
+saída). A correção detecta sequências de pelo menos 6 linhas consecutivas de 1
+caractere e as reconstrói concatenando-as de volta — um limiar escolhido para
+não confundir uma lista numerada real (curta) com o padrão quebrado (longo).
+Depois da correção, o mesmo documento caiu para ~19 mil caracteres (sem
+truncar) e a extração passou a bater com a leitura manual do documento em
+praticamente todos os campos (tipo, número, ano, órgão, data, os três
+signatários, sete itens de fundamentação legal).
+
+**Por que isso importa para a apresentação**: os dois casos são exemplos
+concretos de "aplicação que quebra diante de um documento fora do padrão"
+sendo encontrada e corrigida durante o desenvolvimento — exatamente o tipo de
+situação que a seção 10 do desafio lista como algo que pesa contra. Ambos
+foram descobertos processando documentos reais que o usuário forneceu
+depois da entrega inicial, não nos cinco PDFs de desenvolvimento — o que
+também reforça que a solução generaliza, e não foi ajustada nos exemplos
+fornecidos.
+
+**Limitação que continua de pé**: essas duas correções tratam padrões já
+observados. Um PDF com uma terceira variante de corrupção de texto (outra
+fonte, outra ferramenta de geração) ainda poderia escapar — não há como
+antecipar todas as formas possíveis de um PDF gerar texto malformado sem
+rodar OCR como camada de verificação cruzada, o que está fora do escopo desta
+entrega (ver "Próximos passos").
+
 ## Recuperação de erros
 
 Ambas as implementações de `AIProvider` (`anthropic_provider.py` e

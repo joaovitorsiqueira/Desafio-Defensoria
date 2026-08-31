@@ -1,16 +1,16 @@
 {
-  "executado_em": "2026-08-26T05:13:24+00:00",
+  "executado_em": "2026-08-31T03:39:12+00:00",
   "modelo": "qwen3:8b",
   "prompt_versao": "extraction_v1",
   "acuracia_por_campo": {
     "tipo_ato": 1.0,
     "numero": 1.0,
     "ano": 1.0,
-    "orgao_emissor": 0.75,
+    "orgao_emissor": 1.0,
     "data_assinatura": 1.0,
     "data_publicacao": 1.0
   },
-  "acuracia_media": 0.9583333333333334,
+  "acuracia_media": 1.0,
   "custo_total_usd": 0.0,
   "resultados": [
     {
@@ -30,18 +30,16 @@
         "orgao_emissor": "Defensoria Pública-Geral do Estado",
         "data_assinatura": "2025-04-08",
         "data_publicacao": null,
-        "confianca_calculada": 0.59,
+        "confianca_calculada": 0.45,
         "campos_suspeitos": [
           "orgao_emissor",
-          "signatarios",
-          "pessoas_citadas",
-          "fundamentacao_legal",
+          "data_assinatura",
           "vigencia"
         ],
-        "tokens_entrada": 3025,
-        "tokens_saida": 760,
+        "tokens_entrada": 3345,
+        "tokens_saida": 384,
         "custo_estimado_usd": 0.0,
-        "latencia_s": 43.09,
+        "latencia_s": 26.95,
         "truncado": false
       },
       "acertos_por_campo": {
@@ -67,28 +65,27 @@
         "tipo_ato": "PORTARIA",
         "numero": "001",
         "ano": 2026,
-        "orgao_emissor": "CNDEAIC",
+        "orgao_emissor": "Coordenação do Núcleo Especializado de Atendimento Inicial da Capital",
         "data_assinatura": "2026-05-12",
         "data_publicacao": null,
-        "confianca_calculada": 0.59,
+        "confianca_calculada": 0.65,
         "campos_suspeitos": [
           "data_assinatura",
           "signatarios",
           "fundamentacao_legal",
-          "atos_relacionados",
           "vigencia"
         ],
-        "tokens_entrada": 4222,
-        "tokens_saida": 1012,
+        "tokens_entrada": 4542,
+        "tokens_saida": 1070,
         "custo_estimado_usd": 0.0,
-        "latencia_s": 58.36,
+        "latencia_s": 67.64,
         "truncado": false
       },
       "acertos_por_campo": {
         "tipo_ato": true,
         "numero": true,
         "ano": true,
-        "orgao_emissor": false,
+        "orgao_emissor": true,
         "data_assinatura": true,
         "data_publicacao": true
       }
@@ -116,10 +113,10 @@
           "atos_relacionados",
           "vigencia"
         ],
-        "tokens_entrada": 14212,
-        "tokens_saida": 2200,
+        "tokens_entrada": 14515,
+        "tokens_saida": 2251,
         "custo_estimado_usd": 0.0,
-        "latencia_s": 249.62,
+        "latencia_s": 257.64,
         "truncado": true
       },
       "acertos_por_campo": {
@@ -157,10 +154,10 @@
           "data_assinatura",
           "vigencia"
         ],
-        "tokens_entrada": 4105,
-        "tokens_saida": 892,
+        "tokens_entrada": 4425,
+        "tokens_saida": 844,
         "custo_estimado_usd": 0.0,
-        "latencia_s": 69.21,
+        "latencia_s": 52.08,
         "truncado": false
       },
       "acertos_por_campo": {

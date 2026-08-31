@@ -43,6 +43,50 @@ def _corrigir_ligaduras_quebradas(texto: str) -> str:
     return unicodedata.normalize("NFKC", texto)
 
 
+# Limiar de linhas consecutivas de 1 caractere para considerar que a página foi
+# quebrada caractere-a-caractere (ver _reconstruir_linhas_de_caractere_unico).
+_LIMIAR_RECONSTRUCAO = 6
+
+
+def _reconstruir_linhas_de_caractere_unico(texto: str) -> str:
+    """Reconstrói trechos em que o pypdf extraiu um caractere por linha.
+
+    Observado em produção (não é específico de nenhum documento): em algumas
+    páginas — tipicamente onde há cabeçalhos/rodapés com espaçamento de fonte
+    incomum — o pypdf devolve cada letra do texto como uma "linha" própria
+    (ex.: "P\\nr\\ni\\nm\\ne\\ni\\nr\\na" em vez de "Prima"). Isso infla
+    artificialmente o tamanho do documento (aumentando a chance de truncamento
+    desnecessário) e torna o trecho praticamente ilegível tanto para a busca de
+    evidências quanto para o próprio modelo de IA.
+
+    A correção é puramente estrutural: sempre que houver uma sequência de pelo
+    menos `_LIMIAR_RECONSTRUCAO` linhas consecutivas com exatamente 1 caractere
+    cada (incluindo espaços, que aqui também viram uma "linha" própria), essas
+    linhas são concatenadas de volta em uma única linha. Uma sequência curta de
+    linhas de 1 caractere (ex.: uma lista numerada real) não aciona a
+    reconstrução — o limiar existe justamente para isso.
+    """
+    linhas = texto.split("\n")
+    resultado: list[str] = []
+    buffer: list[str] = []
+
+    def esvaziar_buffer() -> None:
+        if len(buffer) >= _LIMIAR_RECONSTRUCAO:
+            resultado.append("".join(buffer))
+        else:
+            resultado.extend(buffer)
+        buffer.clear()
+
+    for linha in linhas:
+        if len(linha) == 1:
+            buffer.append(linha)
+        else:
+            esvaziar_buffer()
+            resultado.append(linha)
+    esvaziar_buffer()
+    return "\n".join(resultado)
+
+
 class PdfExtractionError(Exception):
     """Erro de negócio ao processar um PDF — sempre deve virar mensagem amigável."""
 
@@ -70,9 +114,11 @@ _MIN_CARACTERES_UTEIS = 30
 
 
 def _normalizar_texto(texto: str) -> str:
-    """Normalização leve: corrige ligaduras quebradas conhecidas, preserva
-    quebras de página/parágrafo, remove espaços redundantes dentro das linhas e
-    linhas totalmente vazias em excesso."""
+    """Normalização leve: reconstrói texto quebrado caractere-a-caractere,
+    corrige ligaduras quebradas conhecidas, preserva quebras de página/parágrafo,
+    remove espaços redundantes dentro das linhas e linhas totalmente vazias em
+    excesso."""
+    texto = _reconstruir_linhas_de_caractere_unico(texto)
     texto = _corrigir_ligaduras_quebradas(texto)
     linhas = [re.sub(r"[ \t]+", " ", linha).strip() for linha in texto.splitlines()]
     linhas_sem_excesso: list[str] = []
